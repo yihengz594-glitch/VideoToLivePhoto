@@ -213,7 +213,7 @@ enum LivePhotoConverter {
         clipVideo.preferredTransform = try await video.load(.preferredTransform)
         if let audio = try await asset.loadTracks(withMediaType: .audio).first {
             let audioRange = try await audio.load(.timeRange)
-            let intersection = CMTimeRangeGetIntersection(clipRange, audioRange)
+            let intersection = CMTimeRangeGetIntersection(clipRange, otherRange: audioRange)
             if intersection.duration > .zero,
                let clipAudio = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                 try clipAudio.insertTimeRange(intersection, of: audio, at: intersection.start - start)
